@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+
+</head>
+
+<body>
+    <div>
+        <ul >
+            <li><a href="/blog">Home</a></li>
+            <li><a href="./contact" >Contact</a></li>
+            <li><a href="./about">About</a></li>
+        </ul>
+    </div>
+    
+    {% for result in jsonResponse %}
+    <div class="container">
+        {% if jsonResponse.error %}
+        <div style="text-align:center">Xin lỗi Không có trận đấu ngày hôm nay</div>
+        
+        {% else %}
+        <div class="app" style="height: 120px;">
+            <div class="header" style="padding-top: 10px ;">
+                <span class="team team-left">
+                    <img src="{{ result.team_home_badge }}" style="width: 20px" >
+                    <span class="name" >{{ result.match_hometeam_name }}</span>
+                </span>
+                <span class="score">{{ result.match_hometeam_ft_score }} - {{ result.match_awayteam_ft_score }}</span>
+                <span class="team team-right">
+                    <img src="{{ result.team_away_badge }}" style="width: 20px"  >
+                    <span class="name" >{{ result.match_awayteam_name }}</span>
+                </span>
+
+                <div style="clear :both ;width: 100%; text-align:center; font-size:10px; margin-top: 80px" > League: {{ result.league_name }} </div> 
+                <div style="width: 100%; text-align:center; font-size:10px;"> Country: {{ result.country_name }}</div>       
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    
+</body>
+
+</html>
